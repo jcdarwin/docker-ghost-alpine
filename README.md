@@ -15,6 +15,7 @@ Building:
 
 Running:
 
+	# Visit the site at http://localhost:3001
 	docker run -d \
 		--name ghost \
 		-p 3001:2368 \

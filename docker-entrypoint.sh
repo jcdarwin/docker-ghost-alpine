@@ -19,8 +19,12 @@ if [[ "$*" == node*current/index.js* ]]; then
 	done
 
 	# symlink our config to the content directory so we can update it
-	mv "$GHOST_INSTALL/config.production.json" "$GHOST_CONTENT/config.production.json"
-	ln -s "$GHOST_CONTENT/config.production.json" "$GHOST_INSTALL/config.production.json"
+	source="$GHOST_INSTALL/config.production.json"
+	target="$GHOST_CONTENT/config.production.json"
+	if [ ! -e "$target" ]; then
+		mv "$source" "$target"
+		ln -s "$target" "$source"
+	fi
 
 	knex-migrator-migrate --init --mgpath "$GHOST_INSTALL/current"
 fi
